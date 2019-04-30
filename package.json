@@ -1,0 +1,16 @@
+{
+  "name": "expressive-dom",
+  "version": "0.0.1",
+  "description": "A standalone DOM intended for testing use with expressive-test",
+  "main": "index.js",
+  "scripts": {
+    "test": "./node_modules/.bin/etr"
+  },
+  "author": "Jeffrey Hunter <jeff@missioncriticallabs.com>",
+  "license": "UNLICENSED",
+  "private": true,
+  "devDependencies": {
+    "expressive-test": "../expressive-test"
+  },
+  "dependencies": {}
+}
