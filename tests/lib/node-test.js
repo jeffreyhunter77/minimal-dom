@@ -3,6 +3,7 @@ require('../setup');
 var Node = require('../../lib/node')
   , DOMException = require('../../lib/dom-exception')
   , Element = require('../../lib/element')
+  , NodeList = require('../../lib/node-list')
 ;
 
 describe(Node, () => {
@@ -115,9 +116,13 @@ describe(Node, () => {
 
   describe(".childNodes", () => {
 
-    it("returns a NodeList");
+    it("returns a NodeList", function() {
+      expect(this.node.childNodes).to.be.an.instanceOf(NodeList);
+    });
 
-    it("returns an empty list");
+    it("returns an empty list", function() {
+      expect(this.node.childNodes.length).to.equal(0);
+    });
 
   });
 

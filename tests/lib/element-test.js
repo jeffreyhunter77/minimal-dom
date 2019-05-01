@@ -2,7 +2,9 @@ require('../setup');
 
 var Element = require('../../lib/element')
   , Node = require('../../lib/node')
-  , DOMException = require('../../lib/dom-exception');
+  , NodeList = require('../../lib/node-list')
+  , DOMException = require('../../lib/dom-exception')
+;
 
 describe(Element, () => {
 
@@ -44,7 +46,7 @@ describe(Element, () => {
       expect(this.element.lastChild).to.be.null;
     });
 
-    xit("returns an empty NodeList for childNodes", function() {
+    it("returns an empty NodeList for childNodes", function() {
       expect(this.element.childNodes.length).to.equal(0);
     });
 
@@ -98,7 +100,9 @@ describe(Element, () => {
           expect(this.newChild.previousSibling).to.be.null;
         });
 
-        it("includes child in the childNodes NodeList");
+        it("includes child in the childNodes NodeList", function() {
+          expect(this.element.childNodes[0]).to.equal(this.newChild);
+        });
       });
 
     });
