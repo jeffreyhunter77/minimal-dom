@@ -548,4 +548,51 @@ describe(Element, () => {
 
   });
 
+
+  describe('.toString()', () => {
+
+    context("for an empty element", () => {
+
+      it("returns an empty element with a tag name that is terminated", function() {
+        expect(this.element.toString()).to.equal('<p />');
+      });
+
+    });
+
+    context("for an element with attributes", () => {
+
+      before(function() { this.element.setAttribute('id', '1234'); });
+      before(function() { this.element.setAttribute('style', 'text-align: center'); });
+
+      it("includes the attributes", function() {
+        expect(this.element.toString()).to.equal('<p id="1234" style="text-align: center" />');
+      });
+
+      context("when an attribute value contains special characters", () => {
+
+        before(function() { this.element.setAttribute('special', '<>&""'); });
+
+        it("escapes the characters", function() {
+          expect(this.element.toString()).to.match(/ special="&lt;&gt;&amp;&quot;&quot;" /);
+        });
+
+      });
+
+    });
+
+    context("for an element with children", () => {
+
+      before(function() {
+        this.element.insertBefore(new Element('em'));
+        this.element.insertBefore(new Element('strong'));
+      });
+
+      it("serializes the children and encloses them in a tag pair", function() {
+        expect(this.element.toString()).to.equal('<p><em /><strong /></p>');
+      });
+
+    });
+
+  });
+
 });
