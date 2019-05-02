@@ -12,5 +12,9 @@
   "devDependencies": {
     "expressive-test": "../expressive-test"
   },
-  "dependencies": {}
+  "dependencies": {
+    "sinon": "^4.4.2",
+    "sinon-chai": "^2.14.0",
+    "chai": "^4.1.2"
+  }
 }

@@ -157,4 +157,40 @@ describe(NodeList, () => {
 
   });
 
+  describe('.forEach()', () => {
+
+    prop('list',     function() { return new NodeList(this.parent); }, MEMOIZE);
+    prop('callback', () => sinon.stub(), MEMOIZE);
+
+    before(function() { this.list.forEach(this.callback); });
+
+    it("invokes the callback once for each item", function() {
+      expect(this.callback).to.have.callCount(4);
+    });
+
+    context("on each call", () => {
+
+      prop('children', function() { return [new Element('span')]; }, MEMOIZE);
+
+      it("it calls back with the item, index, and list", function() {
+        expect(this.callback).to.have.been.calledWith(this.children[0], 0, this.list);
+      });
+
+      context("when a 'this' argument is provided", () => {
+
+        prop('thisArg', function() { return {}; }, MEMOIZE);
+
+        before(function() { this.callback.reset(); });
+        before(function() { this.list.forEach(this.callback, this.thisArg); });
+
+        it("it calls the the provided this", function() {
+          expect(this.callback).to.have.been.calledOn(this.thisArg);
+        });
+
+      });
+
+    });
+
+  });
+
 });
