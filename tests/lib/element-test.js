@@ -8,9 +8,11 @@ var Element = require('../../lib/element')
 
 describe(Element, () => {
 
-  prop('tagName',     'p');
-  prop('element',     function() { return new Element(this.tagName); }, MEMOIZE);
-  prop('newChild',    function() { return new Element('b'); }, MEMOIZE);
+  prop('tagName',        'p');
+  prop('element',        function() { return new Element(this.tagName); }, MEMOIZE);
+  prop('newChild',       function() { return new Element('b'); }, MEMOIZE);
+  prop('attributeName',  'id');
+  prop('attributeValue', '1234');
 
   describe(".tagName", () => {
 
@@ -474,6 +476,72 @@ describe(Element, () => {
           expect(this.result.firstChild.firstChild.tagName).to.equal(this.childB.tagName);
         });
 
+      });
+
+    });
+
+    context("when the element has attributes", function() {
+
+      before(function() {
+        this.element.setAttribute(this.attributeName, this.attributeValue);
+      });
+
+      it("copies the element's attributes", function() {
+        expect(this.result.getAttribute(this.attributeName)).to.equal(this.attributeValue);
+      });
+
+    });
+
+  });
+
+  describe('.setAttribute()', () => {
+
+    before(function() { this.element.setAttribute(this.attributeName, this.attributeValue); });
+
+    it("sets an attribute on the element", function() {
+      expect(this.element.getAttribute(this.attributeName)).to.equal(this.attributeValue);
+    });
+
+    context('when the attribute already has a value', () => {
+
+      prop('newValue', 'abcd');
+
+      before(function() { this.element.setAttribute(this.attributeName, this.newValue); });
+
+      it('is replaced', function() {
+        expect(this.element.getAttribute(this.attributeName)).to.equal(this.newValue);
+      });
+
+    });
+
+  });
+
+
+  describe('.getAttribute()', () => {
+
+    it("returns null when no attribute with that name is set", function() {
+      expect(this.element.getAttribute('nonesuch')).to.be.null;
+    });
+
+  });
+
+  describe('.removeAttribute()', () => {
+
+    context("with an existing attribute", () => {
+
+      before(function() { this.element.setAttribute(this.attributeName, this.attributeValue); });
+      before(function() { this.element.removeAttribute(this.attributeName); });
+
+      it("removes the attribute", function() {
+        expect(this.element.getAttribute(this.attributeName)).to.be.null;
+      });
+
+    });
+
+    context("with a non-existant attribute", () => {
+
+      it("does nothing", function() {
+        expect(() => this.element.removeAttribute(this.attributeName)).to.not.throw();
       });
 
     });
