@@ -595,4 +595,13 @@ describe(Element, () => {
 
   });
 
+
+  context(".outerHTML", () => {
+
+    it("returns the result of calling toString()", function() {
+      expect(this.element.outerHTML).to.equal(this.element.toString());
+    });
+
+  });
+
 });
