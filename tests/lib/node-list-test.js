@@ -132,16 +132,6 @@ describe(NodeList, () => {
 
   });
 
-  describe('.[Symbol.iterator]()', () => {
-
-    prop('list',    function() { return new NodeList(this.parent); }, MEMOIZE);
-
-    it("returns an iterator over the children", function() {
-      expect(this.list[Symbol.iterator]().next().value).to.equal(this.children[0]);
-    });
-
-  });
-
   describe('.proxy()', () => {
 
     prop('list',    function() { return new NodeList(this.parent); }, MEMOIZE);
