@@ -4,6 +4,7 @@ var Element = require('../../lib/element')
   , Node = require('../../lib/node')
   , NodeList = require('../../lib/node-list')
   , DOMException = require('../../lib/dom-exception')
+  , Attr = require('../../lib/attr')
 ;
 
 describe(Element, () => {
@@ -542,6 +543,113 @@ describe(Element, () => {
 
       it("does nothing", function() {
         expect(() => this.element.removeAttribute(this.attributeName)).to.not.throw();
+      });
+
+    });
+
+  });
+
+
+  describe('.setAttributeNode()', () => {
+
+    prop('attr',   function() {
+      return new Attr(undefined, this.attributeName, this.attributeValue);
+    }, MEMOIZE);
+
+    before(function() { this.element.setAttributeNode(this.attr); });
+
+    it("sets an attribute on the element", function() {
+      expect(this.element.getAttribute(this.attributeName)).to.equal(this.attributeValue);
+    });
+
+    context('when the attribute is changed on the element', () => {
+
+      prop('newValue', 'abcd');
+
+      before(function() { this.element.setAttribute(this.attributeName, this.newValue); });
+
+      it('updates the value of the Attr', function() {
+        expect(this.attr.value).to.equal(this.newValue);
+      });
+
+    });
+
+    context('when the attribute is owned by another element', () => {
+
+      prop('otherElem', function() { return new Element('div'); }, MEMOIZE);
+
+      before(function() { this.otherElem.setAttribute('id', '1234'); });
+
+      it("thrown an error", function() {
+        expect(
+          () => this.element.setAttributeNode(this.otherElem.getAttributeNode('id'))
+        ).to.throw(DOMException);
+      });
+
+    });
+
+  });
+
+
+  describe('.getAttributeNode()', () => {
+
+    it("returns null when no attribute with that name is set", function() {
+      expect(this.element.getAttributeNode('nonesuch')).to.be.null;
+    });
+
+    context("when the element has an attribute with that name", function() {
+
+      before(function() { this.element.setAttribute('id', '1234'); });
+
+      it("returns an Attr node", function() {
+        expect(this.element.getAttributeNode('id')).to.be.an.instanceOf(Attr);
+      });
+
+      it("returns an Attr node for the named attribute", function() {
+        expect(this.element.getAttributeNode('id').value).to.equal('1234');
+      });
+
+    });
+
+  });
+
+
+  describe('.removeAttributeNode()', () => {
+
+    context("with an existing attribute", () => {
+
+      prop('attr',   function() { return this.element.getAttributeNode(this.attributeName); }, MEMOIZE);
+      prop('result', function() { return this.element.removeAttributeNode(this.attr); }, MEMOIZE);
+
+      before(function() { this.element.setAttribute(this.attributeName, this.attributeValue); });
+      it("returns the removed attribute", function() {
+        expect(this.result).to.equal(this.attr);
+      });
+
+      context("after completion", function() {
+
+        before(function() { this.result; });
+
+        it("removes the attribute", function() {
+          expect(this.element.getAttribute(this.attributeName)).to.be.null;
+        });
+
+        it("disassociates the Attr from the element", function() {
+          expect(this.attr._parent).to.be.null;
+        });
+
+        it("retains the original value", function() {
+          expect(this.attr.value).to.equal(this.attributeValue);
+        });
+
+      });
+
+    });
+
+    context("when called with an attribute not from this element", () => {
+
+      it("throw an error", function() {
+        expect(() => this.element.removeAttributeNode(new Attr('id'))).to.throw(DOMException);
       });
 
     });

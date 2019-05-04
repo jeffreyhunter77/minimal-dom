@@ -104,4 +104,34 @@ describe(Attr, () => {
 
   });
 
+  describe('.cloneNode()', () => {
+
+    it('returns a new node', function() {
+      expect(this.attr.cloneNode()).to.be.an.instanceOf(Attr);
+    });
+
+    it('returns a different instance', function() {
+      expect(this.attr.cloneNode()).to.not.equal(this.attr);
+    });
+
+    it('copies the attribute name', function() {
+      expect(this.attr.cloneNode().name).to.equal(this.attr.name);
+    });
+
+    it('copies the attribute value', function() {
+      expect(this.attr.cloneNode().value).to.equal(this.attr.value);
+    });
+
+    context("when the attribute belongs to an element", function() {
+
+      prop('attr', function() { return new Attr(this.element, this.name); }, MEMOIZE);
+
+      it("does not copy the association", function() {
+        expect(this.attr.cloneNode()._parent).to.be.null;
+      });
+
+    });
+
+  });
+
 });
