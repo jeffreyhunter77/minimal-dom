@@ -5,6 +5,7 @@ var Element = require('../../lib/element')
   , NodeList = require('../../lib/node-list')
   , DOMException = require('../../lib/dom-exception')
   , Attr = require('../../lib/attr')
+  , NamedNodeMap = require('../../lib/named-node-map')
 ;
 
 describe(Element, () => {
@@ -552,14 +553,31 @@ describe(Element, () => {
 
   describe('.setAttributeNode()', () => {
 
+    prop('result', function() { return this.element.setAttributeNode(this.attr); }, MEMOIZE);
     prop('attr',   function() {
       return new Attr(undefined, this.attributeName, this.attributeValue);
     }, MEMOIZE);
 
-    before(function() { this.element.setAttributeNode(this.attr); });
+    before(function() { this.result; });
 
     it("sets an attribute on the element", function() {
       expect(this.element.getAttribute(this.attributeName)).to.equal(this.attributeValue);
+    });
+
+    it("returns null when the attribute did not previously exist", function() {
+      expect(this.element.setAttributeNode(new Attr(null, 'x', 'y'))).to.be.null;
+    });
+
+    context('when the attribute already exists', () => {
+
+      prop('oldValue',  'abcd');
+
+      before(function() { this.element.setAttribute(this.attributeName, this.oldValue); });
+
+      it('returns the replaced Attr', function() {
+        expect(this.result.value).to.equal(this.oldValue);
+      });
+
     });
 
     context('when the attribute is changed on the element', () => {
@@ -708,6 +726,21 @@ describe(Element, () => {
 
     it("returns the result of calling toString()", function() {
       expect(this.element.outerHTML).to.equal(this.element.toString());
+    });
+
+  });
+
+
+  describe('.attributes', () => {
+
+    before(function() { this.element.setAttribute(this.attributeName, this.attributeValue); });
+
+    it('returns a NamedNodeMap', function() {
+      expect(this.element.attributes).to.be.an.instanceOf(NamedNodeMap);
+    });
+
+    it('permits attributes to be accesses as properties', function() {
+      expect(this.element.attributes[this.attributeName].value).to.equal(this.attributeValue);
     });
 
   });
