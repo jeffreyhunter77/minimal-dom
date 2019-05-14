@@ -4,6 +4,7 @@ var Node = require('../../lib/node')
   , DOMException = require('../../lib/dom-exception')
   , Element = require('../../lib/element')
   , NodeList = require('../../lib/node-list')
+  , Document = require('../../lib/document')
 ;
 
 describe(Node, () => {
@@ -194,9 +195,24 @@ describe(Node, () => {
       expect(this.node.ownerDocument).to.be.null;
     });
 
+    context("when it is a document", () => {
+
+      prop('node', function() { return new Document(); }, MEMOIZE);
+
+      it("returns itself", function() {
+        expect(this.node.ownerDocument).to.equal(this.node);
+      });
+
+    });
+
     context("when contained within a document", () => {
 
-      xit("returns the owning document", function() {
+      prop('document', function() { return new Document(); }, MEMOIZE);
+      prop('node',     function() { return new Element('html'); }, MEMOIZE);
+
+      before(function() { this.document.appendChild(this.node); });
+
+      it("returns the owning document", function() {
         expect(this.node.ownerDocument).to.equal(this.document);
       });
 
