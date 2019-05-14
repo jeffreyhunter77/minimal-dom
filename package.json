@@ -1,5 +1,5 @@
 {
-  "name": "expressive-dom",
+  "name": "minimal-dom",
   "version": "0.0.1",
   "description": "A standalone DOM intended for testing use with expressive-test",
   "main": "index.js",
