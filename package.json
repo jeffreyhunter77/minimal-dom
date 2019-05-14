@@ -10,11 +10,10 @@
   "license": "UNLICENSED",
   "private": true,
   "devDependencies": {
-    "expressive-test": "../expressive-test"
-  },
-  "dependencies": {
+    "expressive-test": "../expressive-test",
     "sinon": "^4.4.2",
     "sinon-chai": "^2.14.0",
     "chai": "^4.1.2"
-  }
+  },
+  "dependencies": {}
 }
