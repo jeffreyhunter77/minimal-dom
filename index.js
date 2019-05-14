@@ -1,0 +1,3 @@
+var Document = require('./lib/document');
+
+module.exports = Document;
