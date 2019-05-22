@@ -145,6 +145,14 @@ describe(NodeList, () => {
       expect(this.proxy[5]).to.be.undefined;
     });
 
+    it("returns true for in with an existing child", function() {
+      expect(1 in this.proxy).to.be.true;
+    });
+
+    it("returns false for in with a non-existent child", function() {
+      expect(5 in this.proxy).to.be.false;
+    });
+
   });
 
   describe('.forEach()', () => {

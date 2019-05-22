@@ -123,6 +123,26 @@ describe(NamedNodeMap, () => {
       expect(this.proxy.id.value).to.equal('1234');
     });
 
+    context("with the in operator", () => {
+
+      it("returns true when an item with that name exists", function() {
+        expect('id' in this.proxy).to.be.true;
+      });
+
+      it("returns true when an property index with that value exists", function() {
+        expect(0 in this.proxy).to.be.true;
+      });
+
+      it("returns false when an item with that name does not exist", function() {
+        expect('nonesuch' in this.proxy).to.be.false;
+      });
+
+      it("returns false when an property index with that value does not exist", function() {
+        expect(4 in this.proxy).to.be.false;
+      });
+
+    });
+
   });
 
 });
