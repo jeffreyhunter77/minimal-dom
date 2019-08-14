@@ -6,6 +6,7 @@ var Document = require('../../lib/document')
   , Text = require('../../lib/text')
   , Attr = require('../../lib/attr')
   , DOMException = require('../../lib/dom-exception')
+  , DocumentFragment = require('../../lib/document-fragment')
 ;
 
 describe(Document, () => {
@@ -316,6 +317,20 @@ describe(Document, () => {
 
     it("throws an exception when name contains an invalid character", function() {
       expect(() => this.doc.createElement('wro<=>ng')).to.throw(DOMException);
+    });
+
+  });
+
+  describe('.createDocumentFragment()', () => {
+
+    prop('result', function() { return this.doc.createDocumentFragment(); }, MEMOIZE);
+
+    it('returns a new DocumentFragment', function() {
+      expect(this.result).to.be.an.instanceOf(DocumentFragment);
+    });
+
+    it('sets the owner document of the fragment', function() {
+      expect(this.result.ownerDocument).to.equal(this.doc);
     });
 
   });
