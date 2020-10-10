@@ -11,11 +11,11 @@ var Document = require('../../lib/document')
 
 describe(Document, () => {
 
-  prop('emptyDoc', function() { return new Document(); }, MEMOIZE);
-  prop('doc',      function() { return new Document(); }, MEMOIZE);
-  prop('root',     function() { return new Element('html'); }, MEMOIZE);
-  prop('newRoot',  function() { return new Element('html'); }, MEMOIZE);
-  prop('textNode', function() { return new Text('hello'); }, MEMOIZE);
+  prop('emptyDoc', function() { return new Document(); });
+  prop('doc',      function() { return new Document(); });
+  prop('root',     function() { return new Element('html'); });
+  prop('newRoot',  function() { return new Element('html'); });
+  prop('textNode', function() { return new Text('hello'); });
 
   before(function() { this.doc.appendChild(this.root); });
 
@@ -103,7 +103,7 @@ describe(Document, () => {
 
     context('with an empty document and no before element', () => {
 
-      prop('result', function() { return this.emptyDoc.insertBefore(this.newRoot); }, MEMOIZE);
+      prop('result', function() { return this.emptyDoc.insertBefore(this.newRoot); });
 
       before(function() { this.result });
 
@@ -139,8 +139,7 @@ describe(Document, () => {
 
     context('with the document element', () => {
 
-      prop('result', function() { return this.doc.replaceChild(this.newRoot, this.root); }, 
-        MEMOIZE);
+      prop('result', function() { return this.doc.replaceChild(this.newRoot, this.root); });
 
       before(function() { this.result; });
 
@@ -169,7 +168,7 @@ describe(Document, () => {
 
     context('with the document element', () => {
 
-      prop('result', function() { return this.doc.removeChild(this.root); }, MEMOIZE);
+      prop('result', function() { return this.doc.removeChild(this.root); });
 
       before(function() { this.result });
 
@@ -201,7 +200,7 @@ describe(Document, () => {
 
     context('with an empty document', () => {
 
-      prop('result', function() { return this.emptyDoc.appendChild(this.newRoot); }, MEMOIZE);
+      prop('result', function() { return this.emptyDoc.appendChild(this.newRoot); });
 
       before(function() { this.result });
 
@@ -240,7 +239,7 @@ describe(Document, () => {
   describe('.cloneNode()', () => {
 
     prop('flag',   false);
-    prop('result', function() { return this.doc.cloneNode(this.flag); }, MEMOIZE);
+    prop('result', function() { return this.doc.cloneNode(this.flag); });
 
     it('returns a Document', function() {
       expect(this.result).to.be.an.instanceOf(Document);
@@ -299,7 +298,7 @@ describe(Document, () => {
     context('with a valid name', () => {
 
       prop('name',   'body');
-      prop('result', function() { return this.doc.createElement(this.name); }, MEMOIZE);
+      prop('result', function() { return this.doc.createElement(this.name); });
 
       it('returns a new Element', function() {
         expect(this.result).to.be.an.instanceOf(Element);
@@ -323,7 +322,7 @@ describe(Document, () => {
 
   describe('.createDocumentFragment()', () => {
 
-    prop('result', function() { return this.doc.createDocumentFragment(); }, MEMOIZE);
+    prop('result', function() { return this.doc.createDocumentFragment(); });
 
     it('returns a new DocumentFragment', function() {
       expect(this.result).to.be.an.instanceOf(DocumentFragment);
@@ -338,7 +337,7 @@ describe(Document, () => {
   describe('.createTextNode()', () => {
 
     prop('value',  'hello');
-    prop('result', function() { return this.doc.createTextNode(this.value); }, MEMOIZE);
+    prop('result', function() { return this.doc.createTextNode(this.value); });
 
     it('returns a new Text node', function() {
       expect(this.result).to.be.an.instanceOf(Text);
@@ -355,7 +354,7 @@ describe(Document, () => {
     context('with a valid name', () => {
 
       prop('name',   'lang');
-      prop('result', function() { return this.doc.createAttribute(this.name); }, MEMOIZE);
+      prop('result', function() { return this.doc.createAttribute(this.name); });
 
       it('returns a new Attr', function() {
         expect(this.result).to.be.an.instanceOf(Attr);

@@ -6,8 +6,8 @@ var CharacterData = require('../../lib/character-data')
 
 describe(CharacterData, () => {
 
-  prop('emptyCD', function() { return new CharacterData(); }, MEMOIZE);
-  prop('cd',      function() { return new CharacterData(this.text); }, MEMOIZE);
+  prop('emptyCD', function() { return new CharacterData(); });
+  prop('cd',      function() { return new CharacterData(this.text); });
   prop('text',    'The quick brown fox jumps over the lazy dog.');
 
   describe('.data', () => {

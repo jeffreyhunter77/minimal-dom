@@ -6,7 +6,7 @@ var NodeList = require('../../lib/node-list')
 
 describe(NodeList, () => {
 
-  prop('list', function() { return new NodeList(); }, MEMOIZE);
+  prop('list', function() { return new NodeList(); });
 
   prop('parent', function() {
     var p = new Element('p');
@@ -14,7 +14,7 @@ describe(NodeList, () => {
     this.children.forEach((c) => p.appendChild(c));
 
     return p;
-  }, MEMOIZE);
+  });
 
   prop('children', function() {
     return [
@@ -23,7 +23,7 @@ describe(NodeList, () => {
       new Element('span'),
       new Element('span')
     ];
-  }, MEMOIZE);
+  });
 
   describe('.length', () => {
 
@@ -37,7 +37,7 @@ describe(NodeList, () => {
 
     context("for a non-empty list", () => {
 
-      prop('list', function() { return new NodeList(this.parent); }, MEMOIZE);
+      prop('list', function() { return new NodeList(this.parent); });
 
       it("returns the count of children in the list", function() {
         expect(this.list.length).to.equal(this.children.length);
@@ -59,7 +59,7 @@ describe(NodeList, () => {
 
     context("for a non-empty list", () => {
 
-      prop('list', function() { return new NodeList(this.parent); }, MEMOIZE);
+      prop('list', function() { return new NodeList(this.parent); });
 
       it("accepts an index starting at 0", function() {
         expect(this.list.item(0)).to.equal(this.children[0]);
@@ -89,8 +89,8 @@ describe(NodeList, () => {
 
     context("for a non-empty list", () => {
 
-      prop('list',    function() { return new NodeList(this.parent); }, MEMOIZE);
-      prop('entries', function() { return this.list.entries(); }, MEMOIZE);
+      prop('list',    function() { return new NodeList(this.parent); });
+      prop('entries', function() { return this.list.entries(); });
 
       it("returns index and node for the value", function() {
         expect(this.entries.next().value).to.deep.equal([0, this.children[0]]);
@@ -114,7 +114,7 @@ describe(NodeList, () => {
 
   describe('.keys()', () => {
 
-    prop('list',    function() { return new NodeList(this.parent); }, MEMOIZE);
+    prop('list',    function() { return new NodeList(this.parent); });
 
     it("returns an iterator over the indexes", function() {
       expect(this.list.keys().next().value).to.equal(0);
@@ -124,7 +124,7 @@ describe(NodeList, () => {
 
   describe('.values()', () => {
 
-    prop('list',    function() { return new NodeList(this.parent); }, MEMOIZE);
+    prop('list',    function() { return new NodeList(this.parent); });
 
     it("returns an iterator over the children", function() {
       expect(this.list.values().next().value).to.equal(this.children[0]);
@@ -134,8 +134,8 @@ describe(NodeList, () => {
 
   describe('.proxy()', () => {
 
-    prop('list',    function() { return new NodeList(this.parent); }, MEMOIZE);
-    prop('proxy',   function() { return this.list.proxy(); }, MEMOIZE);
+    prop('list',    function() { return new NodeList(this.parent); });
+    prop('proxy',   function() { return this.list.proxy(); });
 
     it("returns an object that allows children to be accessed like entries", function() {
       expect(this.proxy[1]).to.equal(this.children[1]);
@@ -157,8 +157,8 @@ describe(NodeList, () => {
 
   describe('.forEach()', () => {
 
-    prop('list',     function() { return new NodeList(this.parent); }, MEMOIZE);
-    prop('callback', () => sinon.stub(), MEMOIZE);
+    prop('list',     function() { return new NodeList(this.parent); });
+    prop('callback', () => sinon.stub());
 
     before(function() { this.list.forEach(this.callback); });
 
@@ -168,7 +168,7 @@ describe(NodeList, () => {
 
     context("on each call", () => {
 
-      prop('children', function() { return [new Element('span')]; }, MEMOIZE);
+      prop('children', function() { return [new Element('span')]; });
 
       it("it calls back with the item, index, and list", function() {
         expect(this.callback).to.have.been.calledWith(this.children[0], 0, this.list);
@@ -176,7 +176,7 @@ describe(NodeList, () => {
 
       context("when a 'this' argument is provided", () => {
 
-        prop('thisArg', function() { return {}; }, MEMOIZE);
+        prop('thisArg', function() { return {}; });
 
         before(function() { this.callback.reset(); });
         before(function() { this.list.forEach(this.callback, this.thisArg); });

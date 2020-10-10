@@ -52,7 +52,7 @@ describe(DOMException, () => {
   describe("constructor", () => {
 
     prop('errorCode', DOMException.WRONG_DOCUMENT_ERR);
-    prop('error',     function() { return new DOMException(this.errorCode); }, MEMOIZE);
+    prop('error',     function() { return new DOMException(this.errorCode); });
 
     context("with a code", () => {
 
@@ -70,7 +70,7 @@ describe(DOMException, () => {
 
       prop('message', 'custom');
       prop('error',    function() {
-        return new DOMException(this.errorCode, this.message); }, MEMOIZE);
+        return new DOMException(this.errorCode, this.message); });
 
       it("uses the supplied message", function() {
         expect(this.error.message).to.equal(this.message);

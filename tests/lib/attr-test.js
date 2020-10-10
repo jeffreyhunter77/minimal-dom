@@ -9,8 +9,8 @@ describe(Attr, () => {
 
   prop('name',    'id');
   prop('value',   '1234');
-  prop('attr',    function() { return new Attr(null, this.name, this.value); }, MEMOIZE);
-  prop('element', function() { return new Element('p'); }, MEMOIZE);
+  prop('attr',    function() { return new Attr(null, this.name, this.value); });
+  prop('element', function() { return new Element('p'); });
 
   describe('.nodeName', () => {
 
@@ -28,7 +28,7 @@ describe(Attr, () => {
 
     context("when Attr is created with a parent", () => {
 
-      prop('attr',    function() { return new Attr(this.element, this.name); }, MEMOIZE);
+      prop('attr',    function() { return new Attr(this.element, this.name); });
 
       before(function() { this.element.setAttribute(this.name, this.value); });
 
@@ -50,7 +50,7 @@ describe(Attr, () => {
 
   describe('.parentNode', () => {
 
-    prop('attr',    function() { return new Attr(this.element, this.name); }, MEMOIZE);
+    prop('attr',    function() { return new Attr(this.element, this.name); });
 
     it("always returns null", function() {
       expect(this.attr.parentNode).to.be.null;
@@ -92,7 +92,7 @@ describe(Attr, () => {
 
       context("when Attr has a parent", () => {
 
-        prop('attr', function() { return new Attr(this.element, this.name); }, MEMOIZE);
+        prop('attr', function() { return new Attr(this.element, this.name); });
 
         it("sets the attribute value on the parent", function() {
           expect(this.element.getAttribute(this.name)).to.equal(this.newValue);
@@ -124,7 +124,7 @@ describe(Attr, () => {
 
     context("when the attribute belongs to an element", function() {
 
-      prop('attr', function() { return new Attr(this.element, this.name); }, MEMOIZE);
+      prop('attr', function() { return new Attr(this.element, this.name); });
 
       it("does not copy the association", function() {
         expect(this.attr.cloneNode()._parent).to.be.null;

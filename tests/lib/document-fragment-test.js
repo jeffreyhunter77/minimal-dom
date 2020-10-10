@@ -8,9 +8,9 @@ var DocumentFragment = require('../../lib/document-fragment')
 
 describe(DocumentFragment, () => {
 
-  prop('doc',      function() { return new Document(); }, MEMOIZE);
-  prop('fragment', function() { return new DocumentFragment(this.doc); }, MEMOIZE);
-  prop('newChild', function() { return new Element('div'); }, MEMOIZE);
+  prop('doc',      function() { return new Document(); });
+  prop('fragment', function() { return new DocumentFragment(this.doc); });
+  prop('newChild', function() { return new Element('div'); });
 
   describe(".nodeName", () => {
 
@@ -70,7 +70,7 @@ describe(DocumentFragment, () => {
 
   describe('.removeChild()', () => {
 
-    prop('child', function() { return new Element('div'); }, MEMOIZE);
+    prop('child', function() { return new Element('div'); });
 
     before(function() { this.fragment.insertBefore(this.child); });
 
@@ -84,7 +84,7 @@ describe(DocumentFragment, () => {
 
   describe('.replaceChild()', () => {
 
-    prop('child', function() { return new Element('span'); }, MEMOIZE);
+    prop('child', function() { return new Element('span'); });
 
     before(function() { this.fragment.insertBefore(this.child); });
 
@@ -113,7 +113,7 @@ describe(DocumentFragment, () => {
   describe('.cloneNode()', () => {
 
     prop('deep',   false);
-    prop('result', function() { return this.fragment.cloneNode(this.deep); }, MEMOIZE);
+    prop('result', function() { return this.fragment.cloneNode(this.deep); });
 
     it('returns a new fragment', function() {
       expect(this.result).to.be.an.instanceOf(DocumentFragment);
@@ -125,9 +125,9 @@ describe(DocumentFragment, () => {
 
     context("when the fragment has children", function() {
 
-      prop('childA', function() { return new Element('span'); }, MEMOIZE);
-      prop('childB', function() { return new Element('strong'); }, MEMOIZE);
-      prop('childC', function() { return new Element('em'); }, MEMOIZE);
+      prop('childA', function() { return new Element('span'); });
+      prop('childB', function() { return new Element('strong'); });
+      prop('childC', function() { return new Element('em'); });
 
       before(function() {
         this.fragment.appendChild(this.childA);

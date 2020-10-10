@@ -11,8 +11,8 @@ var Element = require('../../lib/element')
 describe(Element, () => {
 
   prop('tagName',        'p');
-  prop('element',        function() { return new Element(this.tagName); }, MEMOIZE);
-  prop('newChild',       function() { return new Element('b'); }, MEMOIZE);
+  prop('element',        function() { return new Element(this.tagName); });
+  prop('newChild',       function() { return new Element('b'); });
   prop('attributeName',  'id');
   prop('attributeValue', '1234');
 
@@ -70,7 +70,7 @@ describe(Element, () => {
 
     context("for an empty element", () => {
 
-      prop('result', function() { return this.element.insertBefore(this.newChild); }, MEMOIZE);
+      prop('result', function() { return this.element.insertBefore(this.newChild); });
 
       it("returns the inserted node", function() {
         expect(this.result).to.equal(this.newChild);
@@ -113,13 +113,13 @@ describe(Element, () => {
 
     context("for an element with one child", () => {
 
-      prop('child', function() { return new Element('em'); }, MEMOIZE);
+      prop('child', function() { return new Element('em'); });
 
-      before(function() { this.element.insertBefore(this.child); }, MEMOIZE);
+      before(function() { this.element.insertBefore(this.child); });
 
       context("when called with the existing child", () => {
 
-        before(function() { this.element.insertBefore(this.newChild, this.child); }, MEMOIZE);
+        before(function() { this.element.insertBefore(this.newChild, this.child); });
 
         it("inserts the new child at the beginning of the list", function() {
           expect(this.element.firstChild).to.equal(this.newChild);
@@ -149,7 +149,7 @@ describe(Element, () => {
 
       context("when called without an argument", () => {
 
-        before(function() { this.element.insertBefore(this.newChild); }, MEMOIZE);
+        before(function() { this.element.insertBefore(this.newChild); });
 
         it("inserts the new child at the end of the list", function() {
           expect(this.element.lastChild).to.equal(this.newChild);
@@ -181,15 +181,15 @@ describe(Element, () => {
 
     context("for an element with multiple children", () => {
 
-      prop('leftChild',  function() { return new Element('em'); }, MEMOIZE);
-      prop('rightChild', function() { return new Element('strong'); }, MEMOIZE);
+      prop('leftChild',  function() { return new Element('em'); });
+      prop('rightChild', function() { return new Element('strong'); });
 
-      before(function() { this.element.insertBefore(this.rightChild); }, MEMOIZE);
-      before(function() { this.element.insertBefore(this.leftChild, this.rightChild); }, MEMOIZE);
+      before(function() { this.element.insertBefore(this.rightChild); });
+      before(function() { this.element.insertBefore(this.leftChild, this.rightChild); });
 
       context("when inserted between existing children", () => {
 
-        before(function() { this.element.insertBefore(this.newChild, this.rightChild); }, MEMOIZE);
+        before(function() { this.element.insertBefore(this.newChild, this.rightChild); });
 
         it("retains the existing child at the beginning of the list", function() {
           expect(this.element.firstChild).to.equal(this.leftChild);
@@ -229,7 +229,7 @@ describe(Element, () => {
 
     context("when called to insert on a child that is not its own", () => {
 
-      prop('wrongChild',  function() { return new Element('em'); }, MEMOIZE);
+      prop('wrongChild',  function() { return new Element('em'); });
 
       it("throws an error", function() {
         expect(
@@ -241,8 +241,8 @@ describe(Element, () => {
 
     context("when called with a new child that exists elsewhere in the tree", () => {
 
-      prop('otherParent', function() { return new Element('div'); }, MEMOIZE);
-      prop('newChild',    function() { return this.otherParent.insertBefore(new Element('div')); }, MEMOIZE);
+      prop('otherParent', function() { return new Element('div'); });
+      prop('newChild',    function() { return this.otherParent.insertBefore(new Element('div')); });
 
       it("first removes the child from its existing location", function() {
         this.element.insertBefore(this.newChild);
@@ -251,7 +251,7 @@ describe(Element, () => {
 
       context("when that child is an ancestor", () => {
 
-        prop('parent', function() { return new Element('div'); }, MEMOIZE);
+        prop('parent', function() { return new Element('div'); });
 
         before(function() { this.newChild.insertBefore(this.parent); });
         before(function() { this.parent.insertBefore(this.element); });
@@ -269,9 +269,9 @@ describe(Element, () => {
 
   describe(".removeChild()", () => {
 
-    prop('child',      function() { return new Element('b'); }, MEMOIZE);
-    prop('leftChild',  function() { return new Element('i'); }, MEMOIZE);
-    prop('rightChild', function() { return new Element('u'); }, MEMOIZE);
+    prop('child',      function() { return new Element('b'); });
+    prop('leftChild',  function() { return new Element('i'); });
+    prop('rightChild', function() { return new Element('u'); });
 
     context("when removing a middle child", () => {
 
@@ -370,7 +370,7 @@ describe(Element, () => {
 
     context("when called with a child that is not its own", () => {
 
-      prop('wrongChild', function() { return new Element('em'); }, MEMOIZE);
+      prop('wrongChild', function() { return new Element('em'); });
 
       it("throws an error", function() {
         expect(() => this.element.removeChild(this.wrongChild)).to.throw(DOMException)
@@ -383,9 +383,9 @@ describe(Element, () => {
 
   describe('.replaceChild()', function() {
 
-    prop('childA', function() { return new Element('div'); }, MEMOIZE);
-    prop('childB', function() { return new Element('div'); }, MEMOIZE);
-    prop('childC', function() { return new Element('div'); }, MEMOIZE);
+    prop('childA', function() { return new Element('div'); });
+    prop('childB', function() { return new Element('div'); });
+    prop('childC', function() { return new Element('div'); });
 
     before(function() {
       this.element.insertBefore(this.childA);
@@ -417,7 +417,7 @@ describe(Element, () => {
 
   describe('.appendChild()', () => {
 
-    prop('existingChild', function() { return new Element('em'); }, MEMOIZE);
+    prop('existingChild', function() { return new Element('em'); });
 
     before(function() { this.element.insertBefore(this.existingChild); });
     before(function() { this.element.appendChild(this.newChild); });
@@ -432,7 +432,7 @@ describe(Element, () => {
   describe('.cloneNode()', () => {
 
     prop('deep',   false);
-    prop('result', function() { return this.element.cloneNode(this.deep); }, MEMOIZE);
+    prop('result', function() { return this.element.cloneNode(this.deep); });
 
     it('returns a new element', function() {
       expect(this.result).to.be.an.instanceOf(Element);
@@ -444,9 +444,9 @@ describe(Element, () => {
 
     context("when the element has children", function() {
 
-      prop('childA', function() { return new Element('span'); }, MEMOIZE);
-      prop('childB', function() { return new Element('strong'); }, MEMOIZE);
-      prop('childC', function() { return new Element('em'); }, MEMOIZE);
+      prop('childA', function() { return new Element('span'); });
+      prop('childB', function() { return new Element('strong'); });
+      prop('childC', function() { return new Element('em'); });
 
       before(function() {
         this.element.appendChild(this.childA);
@@ -553,10 +553,10 @@ describe(Element, () => {
 
   describe('.setAttributeNode()', () => {
 
-    prop('result', function() { return this.element.setAttributeNode(this.attr); }, MEMOIZE);
+    prop('result', function() { return this.element.setAttributeNode(this.attr); });
     prop('attr',   function() {
       return new Attr(undefined, this.attributeName, this.attributeValue);
-    }, MEMOIZE);
+    });
 
     before(function() { this.result; });
 
@@ -598,7 +598,7 @@ describe(Element, () => {
 
     context('when the attribute is owned by another element', () => {
 
-      prop('otherElem', function() { return new Element('div'); }, MEMOIZE);
+      prop('otherElem', function() { return new Element('div'); });
 
       before(function() { this.otherElem.setAttribute('id', '1234'); });
 
@@ -640,8 +640,8 @@ describe(Element, () => {
 
     context("with an existing attribute", () => {
 
-      prop('attr',   function() { return this.element.getAttributeNode(this.attributeName); }, MEMOIZE);
-      prop('result', function() { return this.element.removeAttributeNode(this.attr); }, MEMOIZE);
+      prop('attr',   function() { return this.element.getAttributeNode(this.attributeName); });
+      prop('result', function() { return this.element.removeAttributeNode(this.attr); });
 
       before(function() { this.element.setAttribute(this.attributeName, this.attributeValue); });
       it("returns the removed attribute", function() {

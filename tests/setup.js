@@ -5,5 +5,4 @@ var et = require('expressive-test')
 
 et.chai.use(sinonChai);
 
-global.MEMOIZE = {memoize: true};
 global.sinon = sinon;

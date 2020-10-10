@@ -9,11 +9,11 @@ var Node = require('../../lib/node')
 
 describe(Node, () => {
 
-  prop('node',     function() { return new Node(); }, MEMOIZE);
-  prop('child',    function() { return new Node(); }, MEMOIZE);
-  prop('newChild', function() { return new Node(); }, MEMOIZE);
-  prop('sibling',  function() { return new Node(); }, MEMOIZE);
-  prop('parent',   function() { return new Element('p'); }, MEMOIZE);
+  prop('node',     function() { return new Node(); });
+  prop('child',    function() { return new Node(); });
+  prop('newChild', function() { return new Node(); });
+  prop('sibling',  function() { return new Node(); });
+  prop('parent',   function() { return new Element('p'); });
 
 
   describe("node type constants", () => {
@@ -104,8 +104,8 @@ describe(Node, () => {
 
     context("with a parent", () => {
 
-      prop('parent', function() { return new Node(); }, MEMOIZE);
-      prop('node',   function() { return new Node(this.parent); }, MEMOIZE);
+      prop('parent', function() { return new Node(); });
+      prop('node',   function() { return new Node(this.parent); });
 
       it("returns the parent node", function() {
         expect(this.node.parentNode).to.equal(this.parent);
@@ -197,7 +197,7 @@ describe(Node, () => {
 
     context("when it is a document", () => {
 
-      prop('node', function() { return new Document(); }, MEMOIZE);
+      prop('node', function() { return new Document(); });
 
       it("returns itself", function() {
         expect(this.node.ownerDocument).to.equal(this.node);
@@ -207,8 +207,8 @@ describe(Node, () => {
 
     context("when contained within a document", () => {
 
-      prop('document', function() { return new Document(); }, MEMOIZE);
-      prop('node',     function() { return new Element('html'); }, MEMOIZE);
+      prop('document', function() { return new Document(); });
+      prop('node',     function() { return new Element('html'); });
 
       before(function() { this.document.appendChild(this.node); });
 

@@ -7,8 +7,8 @@ var NamedNodeMap = require('../../lib/named-node-map')
 
 describe(NamedNodeMap, () => {
 
-  prop('elem',  function() { return new Element('div'); }, MEMOIZE);
-  prop('map',   function() { return new NamedNodeMap(this.elem); }, MEMOIZE);
+  prop('elem',  function() { return new Element('div'); });
+  prop('map',   function() { return new NamedNodeMap(this.elem); });
   prop('attrs', {'id': '1234'});
 
   before(function() { for (var a in this.attrs) { this.elem.setAttribute(a, this.attrs[a]); } });
@@ -39,7 +39,7 @@ describe(NamedNodeMap, () => {
 
   describe('.setNamedItem()', () => {
 
-    prop('attr', function() { return new Attr(null, 'data-postcode', 'WC1A 2TH'); }, MEMOIZE);
+    prop('attr', function() { return new Attr(null, 'data-postcode', 'WC1A 2TH'); });
 
     before(function() { this.map.setNamedItem(this.attr); });
 
@@ -109,7 +109,7 @@ describe(NamedNodeMap, () => {
 
   describe('.proxy()', () => {
 
-    prop('proxy',   function() { return this.map.proxy(); }, MEMOIZE);
+    prop('proxy',   function() { return this.map.proxy(); });
 
     it("returns an object that allows items to be accessed like entries", function() {
       expect(this.proxy[0].name).to.equal('id');

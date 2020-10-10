@@ -9,7 +9,7 @@ var Text = require('../../lib/text')
 describe(Text, () => {
 
   prop('content', 'Hello world!');
-  prop('text',    function() { return new Text(this.content); }, MEMOIZE);
+  prop('text',    function() { return new Text(this.content); });
 
   describe('.nodeName', () => {
 
@@ -56,7 +56,7 @@ describe(Text, () => {
 
   describe('.cloneNode()', () => {
 
-    prop('result', function() { return this.text.cloneNode(false); }, MEMOIZE);
+    prop('result', function() { return this.text.cloneNode(false); });
 
     it('returns a Text node', function() {
       expect(this.result).to.be.an.instanceOf(Text);
@@ -74,8 +74,8 @@ describe(Text, () => {
 
   describe('.splitText()', () => {
 
-    prop('parent',  function() { return new Element('p'); }, MEMOIZE);
-    prop('sibling', function() { return new Text('!'); }, MEMOIZE);
+    prop('parent',  function() { return new Element('p'); });
+    prop('sibling', function() { return new Text('!'); });
 
     before(function() {
       if (this.parent) {
@@ -86,7 +86,7 @@ describe(Text, () => {
 
     context('when called with a valid offset', () => {
 
-      prop('newNode', function() { return this.text.splitText(6); }, MEMOIZE);
+      prop('newNode', function() { return this.text.splitText(6); });
 
       before(function() { this.newNode; });
 
@@ -116,8 +116,8 @@ describe(Text, () => {
     context("when this node does not have a parent", () => {
 
       prop('parent',  false);
-      prop('sibling', function() { return this.text.splitText(11); }, MEMOIZE);
-      prop('newNode', function() { return this.text.splitText(6); }, MEMOIZE);
+      prop('sibling', function() { return this.text.splitText(11); });
+      prop('newNode', function() { return this.text.splitText(6); });
 
       before(function() { this.sibling; });
       before(function() { this.newNode; });
