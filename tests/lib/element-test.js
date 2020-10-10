@@ -570,12 +570,16 @@ describe(Element, () => {
 
     context('when the attribute already exists', () => {
 
-      prop('oldValue',  'abcd');
+      prop('oldValue',  function() { return this.attributeValue});
+      prop('newerValue',  'abcd');
 
-      before(function() { this.element.setAttribute(this.attributeName, this.oldValue); });
+      prop('newResult', function() {
+        let attr = new Attr(undefined, this.attributeName, this.newerValue)
+        return this.element.setAttributeNode(attr);
+      });
 
       it('returns the replaced Attr', function() {
-        expect(this.result.value).to.equal(this.oldValue);
+        expect(this.newResult.value).to.equal(this.oldValue);
       });
 
     });

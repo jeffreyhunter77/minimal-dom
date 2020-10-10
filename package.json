@@ -1,16 +1,16 @@
 {
   "name": "minimal-dom",
   "version": "0.1.0",
-  "description": "A standalone DOM intended for testing use with expressive-test",
+  "description": "A standalone DOM created for unit testing",
   "main": "index.js",
   "scripts": {
-    "test": "./node_modules/.bin/etr"
+    "test": "etr"
   },
   "author": "Jeffrey Hunter <jeff@missioncriticallabs.com>",
   "license": "UNLICENSED",
   "private": true,
   "devDependencies": {
-    "expressive-test": "../expressive-test",
+    "expressive-test": "^0.0.2",
     "sinon": "^4.4.2",
     "sinon-chai": "^2.14.0",
     "chai": "^4.1.2"
