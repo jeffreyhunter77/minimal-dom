@@ -7,8 +7,13 @@
     "test": "etr"
   },
   "author": "Jeffrey Hunter <jeff@missioncriticallabs.com>",
-  "license": "UNLICENSED",
-  "private": true,
+  "license": "MIT",
+  "private": false,
+  "keywords": ["xml", "dom", "core", "level", "1"],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jeffreyhunter77/minimal-dom.git"
+  },
   "devDependencies": {
     "expressive-test": "^0.0.2",
     "sinon": "^4.4.2",
